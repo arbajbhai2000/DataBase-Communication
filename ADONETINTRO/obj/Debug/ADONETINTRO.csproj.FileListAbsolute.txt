@@ -1,0 +1,7 @@
+C:\Users\arbaj\source\repos\ARBAJ_DATABASE_COMMUNICATON\ADONETINTRO\obj\Debug\ADONETINTRO.csproj.AssemblyReference.cache
+C:\Users\arbaj\source\repos\ARBAJ_DATABASE_COMMUNICATON\ADONETINTRO\obj\Debug\ADONETINTRO.csproj.CoreCompileInputs.cache
+C:\Users\arbaj\source\repos\ARBAJ_DATABASE_COMMUNICATON\ADONETINTRO\bin\Debug\ADONETINTRO.exe.config
+C:\Users\arbaj\source\repos\ARBAJ_DATABASE_COMMUNICATON\ADONETINTRO\bin\Debug\ADONETINTRO.exe
+C:\Users\arbaj\source\repos\ARBAJ_DATABASE_COMMUNICATON\ADONETINTRO\bin\Debug\ADONETINTRO.pdb
+C:\Users\arbaj\source\repos\ARBAJ_DATABASE_COMMUNICATON\ADONETINTRO\obj\Debug\ADONETINTRO.exe
+C:\Users\arbaj\source\repos\ARBAJ_DATABASE_COMMUNICATON\ADONETINTRO\obj\Debug\ADONETINTRO.pdb
