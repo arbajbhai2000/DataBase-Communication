@@ -1,0 +1,95 @@
+CREATE DATABASE ExampleDB;
+GO
+
+USE ExampleDB;
+GO
+
+CREATE TABLE Users (
+    Id INT PRIMARY KEY IDENTITY,
+    Name NVARCHAR(100) NOT NULL,
+    Age INT NOT NULL
+);
+
+
+using System;
+using System.Data.SqlClient;
+
+class Program
+{
+    static string connectionString = "Server=your_server_name;Database=ExampleDB;Trusted_Connection=True;";
+
+    static void Main(string[] args)
+    {
+        CreateTable();
+        InsertData("Alice", 30);
+        InsertData("Bob", 25);
+        QueryData();
+        UpdateData("Alice", 31);
+        DeleteData("Bob");
+        QueryData();
+    }
+
+    static void CreateTable()
+    {
+        using (SqlConnection conn = new SqlConnection(connectionString))
+        {
+            conn.Open();
+            SqlCommand cmd = new SqlCommand(
+                "IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='Users' AND xtype='U') " +
+                "CREATE TABLE Users (Id INT PRIMARY KEY IDENTITY, Name NVARCHAR(100), Age INT)", conn);
+            cmd.ExecuteNonQuery();
+        }
+    }
+
+    static void InsertData(string name, int age)
+    {
+        using (SqlConnection conn = new SqlConnection(connectionString))
+        {
+            conn.Open();
+            SqlCommand cmd = new SqlCommand(
+                "INSERT INTO Users (Name, Age) VALUES (@name, @age)", conn);
+            cmd.Parameters.AddWithValue("@name", name);
+            cmd.Parameters.AddWithValue("@age", age);
+            cmd.ExecuteNonQuery();
+        }
+    }
+
+    static void QueryData()
+    {
+        using (SqlConnection conn = new SqlConnection(connectionString))
+        {
+            conn.Open();
+            SqlCommand cmd = new SqlCommand("SELECT * FROM Users", conn);
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                Console.WriteLine($"{reader["Id"]}: {reader["Name"]}, {reader["Age"]}");
+            }
+        }
+    }
+
+    static void UpdateData(string name, int newAge)
+    {
+        using (SqlConnection conn = new SqlConnection(connectionString))
+        {
+            conn.Open();
+            SqlCommand cmd = new SqlCommand(
+                "UPDATE Users SET Age = @newAge WHERE Name = @name", conn);
+            cmd.Parameters.AddWithValue("@newAge", newAge);
+            cmd.Parameters.AddWithValue("@name", name);
+            cmd.ExecuteNonQuery();
+        }
+    }
+
+    static void DeleteData(string name)
+    {
+        using (SqlConnection conn = new SqlConnection(connectionString))
+        {
+            conn.Open();
+            SqlCommand cmd = new SqlCommand(
+                "DELETE FROM Users WHERE Name = @name", conn);
+            cmd.Parameters.AddWithValue("@name", name);
+            cmd.ExecuteNonQuery();
+        }
+    }
+}
