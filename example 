@@ -1,0 +1,74 @@
+using System;
+using MySql.Data.MySqlClient;
+
+namespace MySQLExample
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string connectionString = "Server=localhost;Database=TestDB;User ID=root;Password=your_password;";
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+
+                // Create table if it does not exist
+                CreateTableIfNotExists(connection);
+
+                // Insert data
+                InsertData(connection, "Alice", 30);
+                InsertData(connection, "Bob", 24);
+
+                // Query data
+                QueryData(connection);
+
+                connection.Close();
+            }
+        }
+
+        static void CreateTableIfNotExists(MySqlConnection connection)
+        {
+            string createTableQuery = @"
+                CREATE TABLE IF NOT EXISTS Users (
+                    Id INT PRIMARY KEY AUTO_INCREMENT,
+                    Name VARCHAR(50),
+                    Age INT
+                )";
+
+            using (MySqlCommand command = new MySqlCommand(createTableQuery, connection))
+            {
+                command.ExecuteNonQuery();
+            }
+        }
+
+        static void InsertData(MySqlConnection connection, string name, int age)
+        {
+            string insertQuery = "INSERT INTO Users (Name, Age) VALUES (@Name, @Age)";
+
+            using (MySqlCommand command = new MySqlCommand(insertQuery, connection))
+            {
+                command.Parameters.AddWithValue("@Name", name);
+                command.Parameters.AddWithValue("@Age", age);
+
+                command.ExecuteNonQuery();
+            }
+        }
+
+        static void QueryData(MySqlConnection connection)
+        {
+            string selectQuery = "SELECT * FROM Users";
+
+            using (MySqlCommand command = new MySqlCommand(selectQuery, connection))
+            {
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Console.WriteLine($"Id: {reader["Id"]}, Name: {reader["Name"]}, Age: {reader["Age"]}");
+                    }
+                }
+            }
+        }
+    }
+}
