@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="arbajadonetdbModelStoreContainer" CdmEntityContainer="arbajadonetdbEntities">
+    <EntitySetMapping Name="students">
+      <EntityTypeMapping TypeName="arbajadonetdbModel.student">
+        <MappingFragment StoreEntitySet="student">
+          <ScalarProperty Name="Rollnumber" ColumnName="Rollnumber" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="Trainerid" ColumnName="Trainerid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="trainers">
+      <EntityTypeMapping TypeName="arbajadonetdbModel.trainer">
+        <MappingFragment StoreEntitySet="trainer">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="experience" ColumnName="experience" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="uspInsertTrainer" FunctionName="arbajadonetdbModel.Store.uspInsertTrainer" />
+    <FunctionImportMapping FunctionImportName="uspGetTrainers" FunctionName="arbajadonetdbModel.Store.uspGetTrainers">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="arbajadonetdbModel.uspGetTrainers_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="experience" ColumnName="experience" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>
