@@ -1,0 +1,60 @@
+using Microsoft.AspNetCore.Mvc;
+
+namespace MyWebApp.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class HelloWorldController : ControllerBase
+    {
+        [HttpGet]
+        public IActionResult Get()
+        {
+            return Ok("Hello World!");
+        }
+    }
+}public class Startup
+{
+    public void ConfigureServices(IServiceCollection services)
+    {
+        services.AddControllersWithViews();
+    }
+
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    {
+        if (env.IsDevelopment())
+        {
+            app.UseDeveloperExceptionPage();
+        }
+        else
+        {
+            app.UseExceptionHandler("/Home/Error");
+            app.UseHsts();
+        }
+
+        app.UseHttpsRedirection();
+        app.UseStaticFiles();
+
+        app.UseRouting();
+
+        app.UseAuthorization();
+
+        app.UseEndpoints(endpoints =>
+        {
+            endpoints.MapControllerRoute(
+                name: "default",
+                pattern: "{controller=Home}/{action=Index}/{id?}");
+            endpoints.MapRazorPages();
+            endpoints.MapControllers(); // Enable attribute routing
+        });
+    }
+}
+@page
+@model MyWebApp.Pages.IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Welcome to your ASP.NET Core application.</p>
+</div>
